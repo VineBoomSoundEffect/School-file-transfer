@@ -1,0 +1,122 @@
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <conio.h>
+using namespace std;
+ifstream f("date.txt");
+int n, k = 0, g = 1;
+struct produs{
+    char denumire[50];
+    float pret;
+    int cant;
+    float valvan;
+}p[50];
+void defaultaf(){
+    cout << "BUNA ZIUA! APASATI TASTA NUMERICA CORESPUNZATOARE OPTIUNII:\n";
+    cout << "\t1 - INTRODUCETI DATELE UNUI NOU PRODUS\n";
+    cout << "\t2 - VALOAREA MEDIE A TUTUROR PRODUSELOR\n";
+    cout << "\t3 - AFISAREA IN ORDINE ALFABETICA A PRODUSELOR\n";
+    cout << "\t4 - AFISAREA TUTUROR PRODUSELOR\n";
+    cout << "\t5 - INCHIDETI PROGRAMUL\n";
+}
+void citire(produs p[50]){
+    for(int i=0;i<n;i++){
+        f.get();
+        f.get(p[i].denumire, 50);
+        f.get();
+        f >> p[i].pret;
+        f >> p[i].cant;
+        f.get();
+        p[i].valvan = p[i].pret * p[i].cant;
+        k = n;
+    }
+}
+void f1(produs p[50]){
+    cout << "INTRODU DATELE:\n";
+    cout << "DENUMIRE: ";
+    cin.get(p[n].denumire, 50);
+    cin.get();
+    cout << "PRET: ";
+    cin >> p[n].pret;
+    cout << "CANTITATEA VANDUTA: ";
+    cin >> p[n].cant;
+    p[n].valvan = p[n].pret * p[n].cant;
+    cout << "VALOAREA VANZARII ESTE: " << p[n].valvan << "\n";
+    n++;
+    cout << "APASATI ENTER PENTRU A REVENI LA MENIU";
+    cin.get(); cin.get();
+}
+void f2(produs p[50]){
+    float med = 0;
+    for(int i=0;i<n;i++){
+        med += p[i].pret;
+    }
+    cout << "MEDIA TUTUROR PRODUSELOR: " << med/n << "\n";
+    cout << "APASATI ENTER PENTRU A REVENI LA MENIU";
+    cin.get();
+}
+void f3(produs a[50]){
+    produs b[50];
+    for(int i=0;i<n;i++)
+        strcpy(b[i].denumire, a[i].denumire);
+    char aux[50];
+	for(int i=0;i<n;i++){
+		for(int j=0;j<i;j++){
+			if(stricmp(b[i].denumire, b[j].denumire) < 0){
+                strcpy(aux, b[i].denumire);
+                strcpy(b[i].denumire, b[j].denumire);
+                strcpy(b[j].denumire, aux);
+            }
+		}
+	}
+    for(int i=0;i<n;i++){
+        cout << b[i].denumire << "\n";
+    }
+    cout << "APASATI ENTER PENTRU A REVENI LA MENIU";
+    cin.get();
+}
+void f4(produs p[50]){
+	for(int i=0;i<n;i++){
+		cout << "DENUMIRE: " << p[i].denumire << "\n";
+        cout << "PRET: " << p[i].pret << "\n";
+        cout << "CANTITATE: " << p[i].cant << "\n";
+        cout << "VALOAREA VANZARII: " << p[i].valvan << "\n\n";
+	}
+    cout << "APASATI ENTER PENTRU A REVENI LA MENIU";
+    cin.get();
+}
+void meniu(){
+    defaultaf();
+    char ch = _getch();
+    switch(ch){
+    case '1':
+        system("cls");
+        f1(p);
+        system("cls");
+        break;
+    case '2':
+        system("cls");
+        f2(p);
+        system("cls");
+        break;
+    case '3':
+        system("cls");
+        f3(p);
+        system("cls");
+        break;
+    case '4':
+    	system("cls");
+    	f4(p);
+    	system("cls");
+    	break;
+    case '5':
+    	g = 0;
+    	break;
+    }
+}
+int main(){
+    f >> n;
+    citire(p);
+    while(g) meniu();
+    return 0;
+}
