@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1649229980 source:c:\desktop_elev\bruh 2\main.cpp
-	<iostream>
-	<windows.h>
-	<fstream>
-	<conio.h>
-
