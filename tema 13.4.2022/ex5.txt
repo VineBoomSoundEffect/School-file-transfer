@@ -1,0 +1,85 @@
+#include <iostream>
+#include <fstream>
+#include <conio.h>
+#include <cstring>
+using namespace std;
+struct student{
+	char nume[30];
+	float med;
+	int brs;
+};
+student a[50];
+int n, i, g = 1;
+char ch, str[30];
+ifstream f("date.txt");
+int main(){
+	f >> n;
+	for(i=0;i<n;i++){
+		f.get();
+		f.get(a[i].nume, 30);
+		f >> a[i].med;
+		f >> a[i].brs;
+		f.get();
+	}
+	while(g){
+		cout << "ALEGETI UNA DIN URMATOARELE OPTIUNI:\n";
+		cout << "\t1 - ADAUGAREA UNUI STUDENT IN GRUPA\n";
+		cout << "\t2 - LISTAREA TUTUROR STUDENTILOR DIN GRUPA\n";
+		cout << "\t3 - AFISAREA INFORMATIILOR DESPRE UN STUDENT\n";
+		cout << "\t4 - INCHIDETI PROGRAMUL";
+		ch = _getch();
+		switch(ch){
+			case '1':{
+				system("cls");
+				cout << "INTRODUCETI DATELE NOULUI STUDENT:\n";
+				cout << "NUMELE: ";
+				cin >> a[n].nume;
+				cout << "MEDIA LA FINALUL SESIUNII:\n";
+				cin >> a[n].med;
+				cout << "VALOAREA BURSEI:\n";
+				cin >> a[n].brs;
+				n++;
+				cout << "TASTATI ENTER PENTRU A REVENI LA MENIU";
+				cin.get(); cin.get();
+				system("cls");
+				break;
+			}
+			case '2':{
+				system("cls");
+				for(i=0;i<n;i++){
+					cout << a[i].nume << "\n";
+//					cout << "NUMELE: " << a[i].nume << "\n";
+//					cout << "MEDIA LA FINALUL SESIUNII: " << a[i].med << "\n";
+//					cout << "VALOAREA BURSEI: " << a[i].brs << "\n\n";
+				}
+				cout << "TASTATI ENTER PENTRU A REVENI LA MENIU";
+				cin.get();
+				system("cls");
+				break;
+			}
+			case '3':{
+				system("cls");
+				cout << "INTRODUCETI NUMELE STUDENTULUI:\n";
+				cin.get(str, 30);
+				for(i=0;i<n;i++){
+					if(!strcmp(str, a[i].nume)){
+						cout << "\nNUMELE: " << a[i].nume << "\n";
+						cout << "MEDIA LA FINALUL SESIUNII: " << a[i].med << "\n";
+						cout << "VALOAREA BURSEI: " << a[i].brs << "\n\n";
+						break;
+					}
+				}
+				if(i == n) cout << "STUDENTUL NU A FOST GASIT\n";
+				cout << "TASTATI ENTER PENTRU A REVENI LA MENIU";
+				cin.get(); cin.get();
+				system("cls");
+				break;
+			}
+			case '4':{
+				g = 0;
+				break;
+			}
+		}
+	}
+	return 0;
+}

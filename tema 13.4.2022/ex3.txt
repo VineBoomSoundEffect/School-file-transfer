@@ -1,0 +1,55 @@
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+struct elev{
+	char nume[30];
+	int abs;
+	int nota;
+};
+elev e[50], p[50];
+int n, k = 0;
+ofstream f("situatie.txt");
+ifstream f2("date.txt");
+int main(){
+	f2 >> n;
+	for(int i=0;i<n;i++){
+		f2.get();
+		f2.get(e[i].nume, 30);
+		f2 >> e[i].abs;
+	}
+	//Notarea elevilor
+	for(int i=0;i<n;i++){
+		if(e[i].abs < 10)
+			e[i].nota = 10;
+		else if(e[i].abs >= 10 && e[i].abs < 40)
+			e[i].nota = 9;
+		else if(e[i].abs >= 40 && e[i].abs < 70)
+			e[i].nota = 8;
+		else if(e[i].abs >= 70)
+			e[i].nota = 4;
+		cout << e[i].nume << " " << e[i].nota << "\n";
+	}
+	//Selectarea elevilor cu nota 10
+	for(int i=0;i<n;i++){
+		if(e[i].nota == 10){
+			p[k] = e[i];
+			k++;
+		}
+	}
+	//Ordonarea alfabeica
+	for(int i=0;i<k;i++){
+		for(int j=0;j<k;j++){
+			if(strcmp(p[i].nume, p[j].nume) < 0){
+				elev aux;
+				aux = p[i];
+				p[i] = p[j];
+				p[j] = aux;
+			}
+		}
+	}
+	for(int i=0;i<k;i++){
+		f << p[i].nume << "\n";
+	}
+	return 0;
+}

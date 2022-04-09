@@ -1,0 +1,25 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+struct{
+	int x, y;
+}a[50];
+int ogl(int x){
+	int y;
+	while(x){
+		y = y*10 + x%10;
+		x /= 10;
+	}
+	return y;
+}
+int n;
+ifstream f("perechi.txt");
+int main(){
+	f >> n;
+	for(int i=0;i<n;i++){
+		f >> a[i].x >> a[i].y;
+		if(a[i].x == ogl(a[i].y))
+			cout << a[i].x << " " << a[i].y << "\n";
+	}
+	return 0;
+}

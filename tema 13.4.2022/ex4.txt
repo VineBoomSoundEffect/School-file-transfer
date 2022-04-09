@@ -1,0 +1,50 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+struct trupa{
+	char np[30];
+	char nt[30];
+	int min;
+	int pct;
+};
+trupa a[50], tc;
+int n, i, pctMAX, dt = 0;
+ifstream f("date.txt");
+int main(){
+	f >> n;
+	for(i=0;i<n;i++){
+		f.get();
+		f.get(a[i].nt, 30);
+		f.get();
+		f.get(a[i].np, 30);
+		f >> a[i].min;
+		f >> a[i].pct;
+		f.get();
+	}
+	//Ordonarea trupelor
+	for(i=0;i<n;i++)
+		for(int j=0;j<i;j++)
+			if(a[i].min > a[j].min){
+				trupa aux = a[i];
+				a[i] = a[j];
+				a[j] = aux;
+			}
+	cout << "TRUPELE ISI VOR PREZENTA PIESA IN ORDINEA:\n";
+	for(i=0;i<n;i++)
+		cout << a[i].nt << "\n";
+//	Determinarea castigatorului
+	pctMAX = a[0].pct;
+	for(i=0;i<n;i++)
+		if(a[i].pct > pctMAX){
+			pctMAX = a[i].pct;
+			tc = a[i];
+		}
+	cout << "\nMARELE PREMIU SE ACORDA TRUPEI:\n";
+	cout << tc.nt<<"\n\n";
+	//Determinarea duratei totale
+	for(i=0;i<n;i++)
+		dt += a[i].min;
+	cout << "DURATA TOTALA ESTE:\n";
+	cout << dt << " minute";
+	return 0;
+}
