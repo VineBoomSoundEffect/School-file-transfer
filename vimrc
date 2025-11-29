@@ -4,6 +4,7 @@ set relativenumber
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set ai
 
 syntax on
 color ayu
@@ -23,3 +24,4 @@ let g:lightline = {
       \     'right': [['lineinfo'], ['percent'], ['filetype']]
       \   },
       \ }
+
